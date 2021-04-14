@@ -1,0 +1,179 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//Parameter order will always be jersey #s then ratings
+
+void OutputRoster(const vector<int> & v_jerseyNum, const vector<int> & v_rate)
+{
+   cout << "ROSTER" << endl;
+   for(int i= 0; i < v_jerseyNum.size(); i++)
+   {
+      cout << "Player " << i + 1 << " --" << " Jersey number: " << v_jerseyNum.at(i) << ", Rating: " << v_rate.at(i) << endl;
+   }
+   cout << endl;
+}//End of OutputRoster
+
+void AddPlayer(vector<int> & v_jerseyNum, vector<int> & v_rate)
+{
+   int jerseyNumber= 0;
+   int rating= 0;
+
+   cout << "Enter another player's jersey number: ";
+   cin >> jerseyNumber;
+   cout << endl;
+
+   cout << "Enter another player's rating: ";
+   cin >> rating;
+   cout << endl << endl;
+
+   v_jerseyNum.push_back(jerseyNumber);
+   v_rate.push_back(rating);
+}//End of AddPlayer
+
+void RemovePlayer(vector<int> & v_jerseyNum, vector<int> & v_rate)
+{
+   int jerseyNumber= 0;
+   int rating= 0;
+
+   cout << "Enter a jersey number: ";
+   cin >> jerseyNumber;
+   cout << endl << endl;
+   
+   for(int i= 0; i < v_jerseyNum.size(); i++)
+   {
+      if(v_jerseyNum.at(i) == jerseyNumber)
+      {
+         v_jerseyNum.erase(v_jerseyNum.begin() + i);
+         v_rate.erase(v_rate.begin() + i);
+      }
+   }
+}//End of RemovePlayer
+
+void UpdatePlayerRating(const vector<int> & v_jerseyNum, vector<int> & v_rate)
+{
+   int jerseyNumber= 0;
+   int rating= 0;
+
+   cout << "Enter a jersey number: ";
+   cin >> jerseyNumber;
+   cout << endl;
+   
+   for(int i= 0; i < v_jerseyNum.size(); i++)
+   {
+      if(v_jerseyNum.at(i) == jerseyNumber)
+      {
+         cout << "Enter a new rating for player: ";
+         cin >> rating;
+         cout << endl << endl;
+
+         v_rate.at(i)= rating;
+      }
+   }
+}//End of UpdatePlayerRating
+
+void OutputPlayersAboveRating(const vector<int> & v_jerseyNum, const vector<int> & v_rate)
+{
+    int rating= 0;
+
+    cout << "Enter a rating: ";
+    cin >> rating;
+    cout << endl << endl;
+
+    cout << "ABOVE " << rating << endl;
+    for(int i= 0; i < v_jerseyNum.size(); i++)
+    {
+        if(v_rate.at(i) > rating)
+        {
+            cout << "Player " << i+1 << " -- Jersey number: " << v_jerseyNum.at(i) << ", Rating: " << v_rate.at(i) << endl;
+        }
+    }
+    cout << endl;
+}//End of OutputPlayersAboveRating
+
+int main()
+{
+   vector<int>v_jerseyNumber(5); // Jersey number vector
+   vector<int>v_rating(5); // Rating vector
+   
+   for(int i= 0; i < 5; i++)
+   {
+      int num= 1;
+      num= num + i;
+      
+      // Enter the jersey numbers
+      cout << "Enter player " << num << "'s jersey number: ";
+      int jerseyNumber;
+      cin >> jerseyNumber;
+
+      v_jerseyNumber.at(i)= jerseyNumber;
+      cout << endl;
+      
+      // Enter the player's rating
+      cout << "Enter player " << num << "'s rating: ";
+      int rating;
+      cin >> rating;
+
+      v_rating.at(i)= rating;
+      cout << endl;
+   
+      cout << endl;
+   }
+   
+   cout << "ROSTER" << endl;
+   for(int i= 0; i < v_jerseyNumber.size(); i++)
+   {
+      int numOfPlayer= 1;
+      numOfPlayer= numOfPlayer + i;
+   
+      // Player's information
+      cout << "Player "<< numOfPlayer <<" -- Jersey number: ";
+      cout << v_jerseyNumber.at(i);
+      cout << ", Rating: ";
+      cout << v_rating.at(i);
+      cout << endl;
+   }
+   cout << endl;
+
+   // Menu
+   char option= 'x';
+
+   while(option != 'q')
+   {
+      cout << "MENU" << endl;
+      cout << "a - Add player" << endl;
+      cout << "d - Remove player" << endl;
+      cout << "u - Update player rating" << endl;
+      cout << "r - Output players above a rating" << endl;
+      cout << "o - Output roster" << endl;
+      cout << "q - Quit" << endl;
+      cout << endl;
+
+      cout << "Choose an option: ";
+      cin >> option;
+      cout << endl;
+   
+      if(option == 'a')
+      {
+         AddPlayer(v_jerseyNumber, v_rating);
+      }
+      if(option == 'd')
+      {
+         RemovePlayer(v_jerseyNumber, v_rating);
+      }
+      if(option == 'u')
+      {
+         UpdatePlayerRating(v_jerseyNumber, v_rating);
+      }
+      if(option == 'r')
+      {
+         OutputPlayersAboveRating(v_jerseyNumber, v_rating);
+      }
+      if(option == 'o')
+      {
+         OutputRoster(v_jerseyNumber, v_rating);
+      }
+   
+   }
+   return 0;
+}// End of main
