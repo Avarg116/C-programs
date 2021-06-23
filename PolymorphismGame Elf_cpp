@@ -22,10 +22,8 @@ void Elf::attack(Character &nameOfCharacter)
         else
         {
             //Not same family
-            //double damage= 0.0;
             double damage= 0.0;
             damage= (static_cast<double>(health) / static_cast<double>(MAX_HEALTH)) * static_cast<double>(attackStrength);
-            //nameOfCharacter.damage(nameOfCharacter.getHealth() - damage);
             nameOfCharacter.damage(damage);
       
             cout << "Elf " << this->name << " shoots an arrow at " << nameOfCharacter.getName() << " --- TWANG!!" << endl;
@@ -35,7 +33,6 @@ void Elf::attack(Character &nameOfCharacter)
     }
     double damage= 0.0;
     damage= (static_cast<double>(health) / static_cast<double>(MAX_HEALTH)) * static_cast<double>(attackStrength);
-    //nameOfCharacter.damage(nameOfCharacter.getHealth() - damage);
     nameOfCharacter.damage(damage);
       
     cout << "Elf " << this->name << " shoots an arrow at " << nameOfCharacter.getName() << " --- TWANG!!" << endl;
