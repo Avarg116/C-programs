@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include "Character.h"
+#include "Warrior.h"
+using namespace std;
+
+Warrior::Warrior( const string &name, double health, double attackStrength, const string &team)
+:Character(WARRIOR, name, health, attackStrength), allegiance(team)
+{}
+
+void Warrior::attack(Character &nameOfCharacter)
+{
+    if(nameOfCharacter.getType() == WARRIOR)
+    {
+        Warrior &opp= dynamic_cast<Warrior &>(nameOfCharacter);
+        if(opp.allegiance == this->allegiance)
+        {
+            cout << "Warrior " << this->name << " does not attack Warrior " << nameOfCharacter.getName() << "." << endl;
+            cout << "They share an allegiance with " << opp.allegiance << "." << endl;
+            return;
+        }
+        else
+        {
+            //Not same allegiance
+            double damage= 0.0;
+            damage= (static_cast<double>(health) / static_cast<double>(MAX_HEALTH)) * static_cast<double>(attackStrength); //check
+            nameOfCharacter.damage(damage);
+
+            cout << "Warrior " << this->name << " attacks " << nameOfCharacter.getName() << " --- SLASH!!" << endl;
+            cout << nameOfCharacter.getName() << " takes " << damage << " damage." << endl;
+            return;
+        }
+    }
+    double damage= 0.0;
+    damage= (static_cast<double>(health) / static_cast<double>(MAX_HEALTH)) * static_cast<double>(attackStrength); //check
+    nameOfCharacter.damage(damage);
+
+    cout << "Warrior " << this->name << " attacks " << nameOfCharacter.getName() << " --- SLASH!!" << endl;
+    cout << nameOfCharacter.getName() << " takes " << damage << " damage." << endl;
+    return;
+}
