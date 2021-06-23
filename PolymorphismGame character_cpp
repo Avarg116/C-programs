@@ -1,0 +1,38 @@
+#include "Character.h"
+#include <iostream>
+using namespace std;
+
+    Character::Character(HeroType type, const string &name, double health, double attackStrength)
+    :type(type), name(name), health(health), attackStrength(attackStrength)
+    {
+    }//End of character
+
+    HeroType Character::getType() const
+    {
+        return this->type;
+    }//End of getType
+     
+    const string & Character::getName() const
+    {
+        return this->name;
+    }//End of getName
+    
+    int Character::getHealth() const
+    {
+        return static_cast<int>(health);
+    }//End of getHealth
+    
+    void Character::damage(double d)
+    {
+        //this->health= d;
+        health-=d;
+    }//End of damage
+     
+    bool Character::isAlive() const
+    {
+        if(this->getHealth() > 0)
+        {
+            return true;
+        }
+        return false;
+    }//End of isAlive
