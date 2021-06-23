@@ -1,0 +1,74 @@
+#include <iostream>
+#include "ItemToPurchase.h"
+using namespace std;
+
+    //Default constructor
+    //Initializes sting name and description to "none," and price and quantity to 0
+    ItemToPurchase::ItemToPurchase()
+    {
+        _name= "none";
+        _price= 0;
+        _quantity= 0;
+        _description= "none";
+    }//End of default constructor
+    
+    ItemToPurchase::ItemToPurchase(string nameU, string descriptionU, int priceU, int quantityU)
+    {
+        _name= nameU;
+        _price= priceU;
+        _quantity= quantityU;
+        _description= descriptionU;
+    }//End of 2nd constructor
+
+    //public:
+    void ItemToPurchase::setName(string nameU)
+    {
+        _name= nameU;
+    }//End of setName
+
+    string ItemToPurchase::name() const
+    {
+        return _name;
+    }//End of name
+
+    void ItemToPurchase::setPrice(int priceU)
+    {
+        _price= priceU;
+    }//End of setPrice
+
+    int ItemToPurchase::price() const
+    {
+        return _price;
+    }//End of price
+
+    void ItemToPurchase::setQuantity(int q)
+    {
+        _quantity= q;
+    }//End of ItemToPurchase
+
+    int ItemToPurchase::quantity() const
+    {
+        return _quantity;
+    }//End of quantity
+
+    void ItemToPurchase::setDescription(string descriptionU)
+    {
+        _description= descriptionU;
+    }//End of setDescription
+
+    string ItemToPurchase::description() const
+    {
+        return _description;
+    }//End of description
+    
+    void ItemToPurchase::printItemCost()
+    {
+        // PrintItemCost
+        cout << this->_name << " " << _quantity << " @ $" << _price << " = $" << _quantity * _price << endl;
+    }//End of printItemCost
+
+    void ItemToPurchase::printItemDescription()
+    {
+        // PrintItemToPurchase
+        cout << this->_name << ": " << this->_description;
+    }//End of ItemToPurchase
