@@ -1,0 +1,167 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+#include "ItemToPurchase.h"
+#include "ShoppingCart.h"
+
+void printCustomerNameAndDate(ShoppingCart& cart)
+{
+    cout << "Customer name: " << cart.customerName() << endl;
+    cout << "Today's date: " << cart.date() << endl;
+}//End of printCustomerNameAndDate
+
+void printMenu()
+{
+    cout << endl;
+    cout << "MENU" << endl;
+    cout << "a - Add item to cart" << endl;
+    cout << "d - Remove item from cart" << endl;
+    cout << "c - Change item quantity" << endl;
+    cout << "i - Output items' descriptions" << endl;
+    cout << "o - Output shopping cart" << endl;
+    cout << "q - Quit" << endl;
+    cout << endl;
+}//End of printMenu
+
+void addItemToCart(ShoppingCart& cart)
+{
+    string name, description;
+    int price, quantity;
+    
+    cout << "ADD ITEM TO CART" << endl;
+    cout << "Enter the item name: " << endl;
+    getline(cin, name);
+    
+    cout << "Enter the item description: " << endl;
+    getline(cin, description);
+   
+    cout << "Enter the item price: " << endl;
+    cin >> price;
+    
+    cout << "Enter the item quantity: " << endl;
+    cin >> quantity;
+    
+    ItemToPurchase newItem(name, description, price, quantity);
+    cart.addItem(newItem);
+    
+}//End of addItemToCart
+
+void removeItemFromCart(ShoppingCart& cart)
+{
+    string name;
+    
+    cout << "REMOVE ITEM FROM CART" << endl;
+    cout << "Enter name of item to remove: " << endl;
+    getline(cin, name);
+    cart.removeItem(name);
+    
+}//End of removeItemFromCart
+
+void changeItemQuantity(ShoppingCart& cart)
+{
+    string name;
+    int quantity;
+    
+    cout << "CHANGE ITEM QUANTITY" << endl;
+    cout << "Enter the item name: " << endl;
+    getline(cin, name);
+
+    cout << "Enter the new quantity: " << endl;
+    cin >> quantity;
+    cart.modifyItem(name, quantity);
+    
+}//End of changeItemQuantity
+
+void outputItemDescriptions(ShoppingCart& cart)
+{   
+    cout << "OUTPUT ITEMS\' DESCRIPTIONS" << endl;
+    cout << cart.customerName() << "\'s Shopping Cart - " << cart.date();
+    cout << endl << endl << "Item Descriptions" << endl;
+    cart.printDescriptions();
+    
+}//End of outputItemDescriptions
+
+void outputShoppingCart(ShoppingCart& cart)
+{   
+    cout << endl;
+    cout << "OUTPUT SHOPPING CART" << endl;
+    cout << cart.customerName() << "\'s Shopping Cart - " << cart.date() << endl;
+    cout << "Number of Items: " << cart.numItemsInCart() << endl << endl;
+    cart.printTotal();
+    
+}//End of outputShoppingCart
+
+int main()
+{
+    string name, date;
+    string userInput;
+
+    cout << "Enter customer's name: " << endl;
+    getline(cin, name);
+
+    cout << "Enter today's date: " << endl;
+    getline(cin, date);
+    cout << endl;
+
+    ShoppingCart cart(name, date);
+    printCustomerNameAndDate(cart);
+
+    printMenu();
+    cout << "Choose an option: "; //endl;
+
+    //User input
+    getline(cin,userInput);
+    cout << endl; //check
+
+    while (userInput != "q")
+    {
+        //printMenu();
+        if (userInput != "a" && userInput != "d" && userInput != "c" && userInput != "i" && userInput != "o")
+        {
+            cout << "Choose an option: "; //endl;
+        }
+        else
+        {
+
+            if (userInput == "a")
+            {
+                addItemToCart(cart);
+                printMenu();
+                cout << "Choose an option: "; // << endl << endl;
+            }
+            else if (userInput == "d")
+            {
+                removeItemFromCart(cart);
+                printMenu();
+                cout << "Choose an option: "; // << endl << endl;
+            }
+            else if (userInput == "c")
+            {
+                changeItemQuantity(cart);
+                printMenu();
+                cout << "Choose an option: "; // << endl;
+            }
+            else if (userInput == "i")
+            {
+                outputItemDescriptions(cart);
+                printMenu();
+                cout << "Choose an option: "; // << endl;
+            }
+            else if (userInput == "o")
+            {
+                outputShoppingCart(cart);
+                printMenu();
+                cout << "Choose an option: "; // << endl;
+            }
+            
+        }//End of else
+        cin >> userInput;
+        cout << endl;
+        cin.ignore();
+    }//End of while loop
+
+    return 0;
+
+}//End of main
