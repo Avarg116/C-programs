@@ -1,0 +1,130 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+#include "ShoppingCart.h"
+#include "ItemToPurchase.h"
+
+    ShoppingCart::ShoppingCart()
+    {
+        _customerName= "none";
+        _currentDate= "January 1, 2016";
+    }//End of ShoppingCart constructor
+
+    ShoppingCart::ShoppingCart(string name, string date)
+    {
+        _customerName= name;
+        _currentDate= date;
+    }//End of ShoppingCart constructor
+
+    string ShoppingCart::customerName() const
+    {
+        return _customerName;
+    }//End of customerName
+
+    string ShoppingCart::date() const
+    {
+        return _currentDate;
+    }//End of date
+
+    void ShoppingCart::addItem(ItemToPurchase item)
+    {
+        _cartItems.push_back(item);
+    }//End of addItem
+
+    void ShoppingCart::removeItem(string name)
+    {
+        bool foundItem= false;
+        
+        // Checks if the item is in the list
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            if(_cartItems.at(i).name() == name)
+            {
+                foundItem= true;
+                _cartItems.erase(_cartItems.begin() + i);
+            }
+        }
+        // If the item is not found in the list
+        if(!foundItem)
+        {
+            cout << "Item not found in cart. Nothing removed." << endl;
+        }
+
+    }//End of removeItem
+    
+    void ShoppingCart::modifyItem(string nameOfItem, int newQuantity)
+    {
+        bool foundItem= false;
+
+        // Checks if the item is in the list
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            if(_cartItems.at(i).name() == nameOfItem)
+            {
+                _cartItems.at(i).setQuantity(newQuantity);
+                foundItem= true;
+            }
+        }
+        // If the item is not found in the list
+        if(!(_cartItems.size() == 0 || foundItem))
+        {
+            cout << "Item not found in cart. Nothing modified." << endl;
+            return;
+        }
+
+    }//End of modifyItem
+
+    int ShoppingCart::numItemsInCart()
+    {
+        int total= 0;
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            total += _cartItems.at(i).quantity();
+        }
+        return total;
+    }//End of numItemsInCart
+    
+    double ShoppingCart::costOfCart()
+    {
+        int total= 0;
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            total += _cartItems.at(i).price() * _cartItems.at(i).quantity();
+        }
+        return total;
+    }//End of costOfCart
+    
+    void ShoppingCart::printTotal()
+    {
+        // If the cart is empty
+        if(_cartItems.size() == 0)
+        {
+            cout << "SHOPPING CART IS EMPTY" << endl;
+        }
+
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            _cartItems.at(i).printItemCost();
+        }
+        cout << endl << "Total: $" << costOfCart() << endl;
+
+    }//End of printTotal
+
+    void ShoppingCart::printDescriptions()
+    {   
+        // If the cart is empty
+        if(_cartItems.size() == 0)
+        {
+            cout << "SHOPPING CART IS EMPTY" << endl;
+            return;
+        }
+
+        for(int i= 0; i < _cartItems.size(); i++)
+        {
+            ItemToPurchase currentItem= _cartItems.at(i);
+            currentItem.printItemDescription();
+            cout << endl;
+        }
+
+    }//End of printDescriptions
